@@ -1,20 +1,18 @@
 <?php 
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/agenda_veterinaria/vendor/autoload.php";
+    require_once __DIR__ . '/../vendor/autoload.php';
 
     class Conexion {
         public static function conectar() {
-           try {
-                $servidor = "127.0.0.1";
-                $puerto = "27017";
-                $usuario = "mongoadmin";
-                $password = "123456";
-                $BD = "agenda_veterinaria";
-                $cadenaConexion = "mongodb://" . 
-                                    $usuario . ":" . 
-                                    $password . "@". 
-                                    $servidor .":". 
-                                    $puerto ."/". 
-                                    $BD;
+        try {
+            // Credenciales de conexión
+            $servidor = "localhost";
+            $puerto = "27017";
+            $usuario = "backend";
+            $password = "backend2025";
+            $BD = "agenda_veterinaria";
+
+            // Cadena de conexión corregida
+            $cadenaConexion = "mongodb://$usuario:$password@$servidor:$puerto/$BD?authSource=admin";
                 $cliente = new MongoDB\Client($cadenaConexion);
                 return $cliente->selectDatabase($BD);
            } catch (\Throwable $th) {
