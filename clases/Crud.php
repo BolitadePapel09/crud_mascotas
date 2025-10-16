@@ -1,16 +1,20 @@
 <?php 
 class Crud {
-    public function mostrarDatos() {
-        try {
-            $conexion = Conexion::conectar();
-            // Cambiamos la colección a "mascotas"
-            $coleccion = $conexion->mascotas;
-            $datos = $coleccion->find();
-            return $datos;
-        } catch (\Throwable $th) {
-            return $th->getMessage();
+public function mostrarDatos() {
+    try {
+        $conexion = Conexion::conectar();
+
+        if (is_string($conexion)) {
+            return []; // Error en la conexión, retorna array vacío
         }
+
+        $coleccion = $conexion->mascotas;
+        $datos = $coleccion->find();
+        return $datos;
+    } catch (\Throwable $th) {
+        return []; // Error en consulta, retorna array vacío
     }
+}
 
     public function obtenerDocumento($id) {
         try {
